@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>财务余额差异分析</title>
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<header>
+  <h1>财务余额差异分析</h1>
+  <label>账期 <select id="periodSelect"></select></label>
+  <span id="periodStatus"></span>
+  <button id="runBtn" class="primary">执行对账</button>
+  <button id="closePeriodBtn">关账</button>
+  <div class="spacer"></div>
+  <label>操作人 <select id="userSelect"></select></label>
+  <button id="themeBtn" title="切换明暗主题">◐</button>
+  <button id="reseedBtn" title="重置演示数据">重置数据</button>
+</header>
+
+<div class="tabs">
+  <button data-tab="tree" class="active">差异树</button>
+  <button data-tab="progress">修复进度</button>
+  <button data-tab="audit">审计记录</button>
+</div>
+
+<main>
+  <section id="tab-tree">
+    <div class="tiles" id="tiles"></div>
+    <table class="tree-table" id="treeTable">
+      <thead>
+        <tr>
+          <th>账期 / 组织 / 币种 / 科目</th>
+          <th>总账</th><th>明细</th><th>结算</th><th>调整</th>
+          <th>应平金额<br><span class="muted">明细+调整</span></th>
+          <th>总账差</th><th>结算差</th><th>差异额</th><th>状态</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section id="tab-progress" style="display:none">
+    <div class="pipeline" id="pipeline"></div>
+    <table class="list-table" id="proposalTable">
+      <thead>
+        <tr><th>ID</th><th>类型</th><th>差异位置</th><th>标题</th><th>修复动作</th>
+            <th>状态</th><th>创建/审批</th><th>校验</th><th>操作</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section id="tab-audit" style="display:none">
+    <div style="margin-bottom:10px">
+      <label>实体类型 <select id="auditFilter">
+        <option value="">全部</option>
+        <option value="difference">差异</option>
+        <option value="fix_proposal">修复建议</option>
+        <option value="balance">余额版本</option>
+        <option value="recon_run">对账运行</option>
+        <option value="period">账期</option>
+      </select></label>
+    </div>
+    <table class="list-table" id="auditTable">
+      <thead><tr><th>时间</th><th>操作人</th><th>动作</th><th>实体</th><th>详情</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+</main>
+
+<div class="drawer-mask" id="drawerMask"></div>
+<aside class="drawer" id="drawer">
+  <button class="close" id="drawerClose">✕</button>
+  <div id="drawerBody"></div>
+</aside>
+
+<div class="tooltip" id="tooltip"></div>
+<div class="toast" id="toast"></div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
